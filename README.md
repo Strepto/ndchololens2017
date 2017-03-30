@@ -1,6 +1,8 @@
 # ndchololens2017
 
-For best performance the git project should be contained in a folder called "HoloAndSeekNDC" 
+For HoloToolkit and the build in build tools to be happy, the git project should be contained in a folder called "HoloAndSeekNDC" 
 
-!! git clone https://github.com/Strepto/ndchololens2017.git HoloAndSeekNDC
+```
+git clone https://github.com/Strepto/ndchololens2017.git HoloAndSeekNDC
+```
 
