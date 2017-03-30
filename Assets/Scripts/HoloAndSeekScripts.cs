@@ -22,7 +22,6 @@ public class HoloAndSeekScripts : MonoBehaviour
     int score;
     float startedTime;
     List<FoundTarget> targetSequence;
-    GameObject currrentTarget;
     System.Random rng = new System.Random();
 
     // Use this for initialization
@@ -38,25 +37,19 @@ public class HoloAndSeekScripts : MonoBehaviour
             }
             
             //TargetScript ts = t.AddComponent<TargetScript>();
-            ts.targetSeen.AddListener(FoundTarget);
-            t.SetActive(false);
+            ts.targetSeen += FoundTarget;
+            //t.SetActive(false);
         };
-        currrentTarget = AllTargets[rng.Next(0, AllTargets.Count)];
-        currrentTarget.SetActive(true);
-
-        UsedTargets.Add(currrentTarget);
         startedTime = Time.time;
     }
 
-    public void FoundTarget()
+    public void FoundTarget(GameObject target)
     {
         Remaining3DTextPrefab.GetComponent<TextMesh>().text = UsedTargets.Count + " / " + AllTargets.Count;
-        currrentTarget.GetComponent<TargetScript>().targetSeen.RemoveListener(FoundTarget);
-        currrentTarget.GetComponent<Renderer>().enabled = false;
-        UsedTargets.Add(currrentTarget);
+        target.GetComponent<TargetScript>().targetSeen -= FoundTarget;
+        target.GetComponent<Renderer>().enabled = false;
+        UsedTargets.Add(target);
         var allUnusedTargets = AllTargets.Except(UsedTargets);
-        currrentTarget = allUnusedTargets.ElementAt(rng.Next(0, allUnusedTargets.Count()));
-        currrentTarget.SetActive(true);
         score = score + 10 + rng.Next(0,5);
         Score3DTextPrefab.GetComponent<TextMesh>().text = "Score:" + score;
 

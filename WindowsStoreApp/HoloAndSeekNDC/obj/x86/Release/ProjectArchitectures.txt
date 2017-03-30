@@ -1,1 +1,1 @@
-d:\Profiles\nhals\Documents\UnityProjects\HoloAndSeekNDC\WindowsStoreApp\HoloAndSeekNDC\HoloAndSeekNDC.csproj;x86
+C:\Users\SopraSteria Hololens\Documents\Projects\HoloAndSeekNDC\WindowsStoreApp\HoloAndSeekNDC\HoloAndSeekNDC.csproj;x86

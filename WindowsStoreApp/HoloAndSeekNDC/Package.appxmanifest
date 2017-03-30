@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns:mp="http://schemas.microsoft.com/appx/2014/phone/manifest" xmlns:uap="http://schemas.microsoft.com/appx/manifest/uap/windows10" xmlns:uap2="http://schemas.microsoft.com/appx/manifest/uap/windows10/2" IgnorableNamespaces="uap uap2 mp" xmlns="http://schemas.microsoft.com/appx/manifest/foundation/windows10">
-  <Identity Name="HoloAndSeekNDC" Publisher="CN=DefaultCompany" Version="1.0.0.0" />
+  <Identity Name="HoloAndSeekNDC" Publisher="CN=DefaultCompany" Version="1.0.0.1" />
   <mp:PhoneIdentity PhoneProductId="c43aeaa4-0a0e-4eeb-83ce-c06425f48def" PhonePublisherId="00000000-0000-0000-0000-000000000000" />
   <Properties>
     <DisplayName>HoloAndSeekNDC</DisplayName>

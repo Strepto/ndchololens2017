@@ -42,7 +42,7 @@ namespace HoloToolkit.Unity.SpatialMapping
                 return;
             }
 
-            GameObject roomObject = Instantiate(roomModel, GameObject.Find("_Dynamic").transform);
+            GameObject roomObject = Instantiate(roomModel, gameObject.transform);
             Cleanup();
 
             try
@@ -54,7 +54,7 @@ namespace HoloToolkit.Unity.SpatialMapping
                     AddSurfaceObject(CreateSurfaceObject(
                         mesh: roomFilters[iMesh].sharedMesh,
                         objectName: "roomMesh-" + iMesh,
-                        parentObject: transform,
+                        parentObject: GameObject.Find("_Dynamic").transform,
                         meshID: iMesh
                         ));
                 }

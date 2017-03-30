@@ -12,7 +12,8 @@ public class TargetScript : MonoBehaviour, IFocusable {
     ParticleSystem particleSystem;
     AudioSource audioSource;
     private bool targetHasBeenFound = false;
-    public UnityEvent targetSeen = new UnityEvent();
+    public delegate void targetSeenDelegate(GameObject sender);
+    public event targetSeenDelegate targetSeen;
 
 
     void IFocusable.OnFocusEnter()
@@ -21,8 +22,10 @@ public class TargetScript : MonoBehaviour, IFocusable {
         {
             particleSystem.Play();
             audioSource.Play();
-
-            targetSeen.Invoke();
+            if(targetSeen != null)
+            {
+                targetSeen.Invoke(gameObject);
+            }
             targetHasBeenFound = true;
         }
     }
@@ -35,6 +38,7 @@ public class TargetScript : MonoBehaviour, IFocusable {
 
     // Use this for initialization
     void Start () {
+        
         particleSystem = GetComponent<ParticleSystem>();
         audioSource = GetComponent<AudioSource>();
 	}

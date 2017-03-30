@@ -175,11 +175,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2accd2ab3b795d7449aea7360d96b2f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  targetSeen:
-    m_PersistentCalls:
-      m_Calls: []
-    m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
-      PublicKeyToken=null
 --- !u!136 &136115469464642768
 CapsuleCollider:
   m_ObjectHideFlags: 1
@@ -248,7 +243,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: -1327479031
+  randomSeed: -2096717295
   InitialModule:
     serializedVersion: 3
     enabled: 1
