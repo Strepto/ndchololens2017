@@ -1,0 +1,1 @@
+d:\Profiles\nhals\Documents\UnityProjects\HoloAndSeekNDC\WindowsStoreApp\HoloAndSeekNDC\HoloAndSeekNDC.csproj;x86
