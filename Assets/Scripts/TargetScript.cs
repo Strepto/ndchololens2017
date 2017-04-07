@@ -9,24 +9,25 @@ using UnityEngine.Events;
 [RequireComponent(typeof(AudioSource))]
 public class TargetScript : MonoBehaviour, IFocusable {
 
-    ParticleSystem particleSystem;
+    ParticleSystem particlesSystem;
     AudioSource audioSource;
     private bool targetHasBeenFound = false;
-    public delegate void targetSeenDelegate(GameObject sender);
-    public event targetSeenDelegate targetSeen;
+    
+    public event Action<GameObject> targetSeen;
 
 
     void IFocusable.OnFocusEnter()
     {
         if (targetHasBeenFound == false)
         {
-            particleSystem.Play();
+            particlesSystem.Play();
             audioSource.Play();
             if(targetSeen != null)
             {
                 targetSeen.Invoke(gameObject);
             }
             targetHasBeenFound = true;
+            GetComponent<Renderer>().enabled = false;
         }
     }
 
@@ -39,7 +40,7 @@ public class TargetScript : MonoBehaviour, IFocusable {
     // Use this for initialization
     void Start () {
         
-        particleSystem = GetComponent<ParticleSystem>();
+        particlesSystem = GetComponent<ParticleSystem>();
         audioSource = GetComponent<AudioSource>();
 	}
 	
