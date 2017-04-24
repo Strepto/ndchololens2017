@@ -7,7 +7,7 @@ Material:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_Name: CubeMaterial
-  m_Shader: {fileID: 46, guid: 0000000000000000f000000000000000, type: 0}
+  m_Shader: {fileID: 4800000, guid: 4a6aba8ad13e9704687a790b59eaf008, type: 3}
   m_ShaderKeywords: _EMISSION
   m_LightmapFlags: 1
   m_CustomRenderQueue: -1
@@ -52,6 +52,12 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - first:
+        name: _MatCap
+      second:
+        m_Texture: {fileID: 2800000, guid: 08f995fc44e29da4d9327759f69a63df, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - first:
         name: _MetallicGlossMap
       second:
         m_Texture: {fileID: 0}
@@ -92,6 +98,9 @@ Material:
         name: _GlossyReflections
       second: 1
     - first:
+        name: _MatCapAccurate
+      second: 0
+    - first:
         name: _Metallic
       second: 0
     - first:
@@ -121,7 +130,7 @@ Material:
     m_Colors:
     - first:
         name: _Color
-      second: {r: 0.81066173, g: 0.8737576, b: 0.9264706, a: 1}
+      second: {r: 0.2629758, g: 0.6324783, b: 0.9411765, a: 1}
     - first:
         name: _EmissionColor
       second: {r: 0, g: 0, b: 0, a: 1}
