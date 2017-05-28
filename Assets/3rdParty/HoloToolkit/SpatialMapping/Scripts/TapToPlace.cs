@@ -19,6 +19,7 @@ namespace HoloToolkit.Unity.SpatialMapping
 
     public class TapToPlace : MonoBehaviour, IInputClickHandler
     {
+
         [Tooltip("Supply a friendly name for the anchor as the key name for the WorldAnchorStore.")]
         public string SavedAnchorFriendlyName = "SavedAnchorFriendlyName";
 
@@ -47,6 +48,7 @@ namespace HoloToolkit.Unity.SpatialMapping
         /// </summary>
         protected SpatialMappingManager spatialMappingManager;
 
+        private int originalLayer = -1;
         protected virtual void Start()
         {
             // Make sure we have all the components in the scene we need.
@@ -94,7 +96,7 @@ namespace HoloToolkit.Unity.SpatialMapping
                 Vector3 gazeDirection = Camera.main.transform.forward;
 
                 RaycastHit hitInfo;
-                if (Physics.Raycast(headPosition, gazeDirection, out hitInfo, 30.0f, spatialMappingManager.LayerMask))
+                if (Physics.Raycast(headPosition, gazeDirection, out hitInfo, 30.0f, LayerMask.GetMask( "Default", LayerMask.LayerToName(spatialMappingManager.PhysicsLayer))) )
                 {
                     // Rotate this object to face the user.
                     Quaternion toQuat = Camera.main.transform.localRotation;
@@ -125,12 +127,17 @@ namespace HoloToolkit.Unity.SpatialMapping
 
         public virtual void OnInputClicked(InputClickedEventData eventData)
         {
+            if(originalLayer == -1){
+                originalLayer = gameObject.layer;
+            }
             // On each tap gesture, toggle whether the user is in placing mode.
             IsBeingPlaced = !IsBeingPlaced;
 
             // If the user is in placing mode, display the spatial mapping mesh.
             if (IsBeingPlaced)
             {
+                InputManager.Instance.PushModalInputHandler(gameObject);
+                gameObject.SetLayer(LayerMask.NameToLayer("Ignore Raycast"), includeChildren: true);
                 spatialMappingManager.DrawVisualMeshes = true;
 
                 Debug.Log(gameObject.name + " : Removing existing world anchor if any.");
@@ -140,6 +147,8 @@ namespace HoloToolkit.Unity.SpatialMapping
             // If the user is not in placing mode, hide the spatial mapping mesh.
             else
             {
+                InputManager.Instance.PopModalInputHandler();
+                gameObject.SetLayer(originalLayer, includeChildren: true);
                 spatialMappingManager.DrawVisualMeshes = false;
                 // Add world anchor when object placement is done.
                 anchorManager.AttachAnchor(gameObject, SavedAnchorFriendlyName);
