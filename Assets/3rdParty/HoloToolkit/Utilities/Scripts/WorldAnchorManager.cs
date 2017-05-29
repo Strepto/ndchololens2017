@@ -57,10 +57,9 @@ namespace HoloToolkit.Unity
         /// <summary>
         /// When the app starts grab the anchor store immediately.
         /// </summary>
-        protected override void Awake()
-        {
-            base.Awake();
 
+        protected void Start()
+        {
             AnchorStore = null;
             WorldAnchorStore.GetAsync(AnchorStoreReady);
         }

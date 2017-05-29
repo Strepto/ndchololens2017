@@ -8,6 +8,16 @@ public class CustomSyncModelObject : SyncObject
     [SyncData]
     public SyncTransform transform;
 
+    [SyncData]
+    public SyncString GUID;
+
     //Local Data
     public GameObject GameObject { get; set; }
+
+    public CustomSyncModelObject() { }
+
+    public CustomSyncModelObject(string GUID)
+    {
+        this.GUID.Value = GUID;
+    }
 }
