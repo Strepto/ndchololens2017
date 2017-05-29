@@ -74,6 +74,8 @@ namespace HoloToolkit.Unity.SpatialMapping
                 Destroy(this);
             }
 
+            SavedAnchorFriendlyName = SavedAnchorFriendlyName + Random.Range(0, 4086);
+
             if (PlaceParentOnTap)
             {
                 if (ParentGameObjectToPlace != null && !gameObject.transform.IsChildOf(ParentGameObjectToPlace.transform))

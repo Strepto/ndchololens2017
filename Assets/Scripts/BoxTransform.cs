@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using HoloToolkit.Unity;
 using HoloToolkit.Unity.InputModule;
+using HoloToolkit.Unity.SpatialMapping;
 using UnityEngine;
 
 public class BoxTransform : MonoBehaviour, IFocusable, ISpeechHandler, IManipulationHandler
@@ -12,7 +14,12 @@ public class BoxTransform : MonoBehaviour, IFocusable, ISpeechHandler, IManipula
     Vector3? prevCumulativeDelta;
     private bool isManipulating = false;
     private ManipulationModes manipulationMode = ManipulationModes.Scale;
+    private WorldAnchorManager anchorManager;
 
+
+	void Start(){
+		anchorManager = WorldAnchorManager.IsInitialized ? WorldAnchorManager.Instance : null;
+	}
 
     void ISpeechHandler.OnSpeechKeywordRecognized(SpeechKeywordRecognizedEventData eventData)
     {
@@ -64,6 +71,10 @@ public class BoxTransform : MonoBehaviour, IFocusable, ISpeechHandler, IManipula
 		isManipulating = true;
         prevCumulativeDelta = null;
         InputManager.Instance.PushModalInputHandler(gameObject);
+		if(anchorManager != null){
+			anchorManager.RemoveAnchor(gameObject);
+		}
+
     }
 
 
@@ -127,6 +138,9 @@ public class BoxTransform : MonoBehaviour, IFocusable, ISpeechHandler, IManipula
 			return;
 		}
         isManipulating = false;
+		if(anchorManager != null){
+			anchorManager.AttachAnchor(gameObject, gameObject.GetComponent<TapToPlace>().SavedAnchorFriendlyName);
+		}
 		InputManager.Instance.PopModalInputHandler();
         prevCumulativeDelta = null;
     }
