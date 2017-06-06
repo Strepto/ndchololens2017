@@ -30,7 +30,7 @@ public class CustomPrefabSpawner : SpawnManager<CustomSyncModelObject>
 
         instance.GetComponent<CustomTransformSynchronizer>().TransformDataModel = syncObject.transform;
 
-        if(SyncSource != null) SyncSource.AddObject(syncObject);
+        if (SyncSource != null) SyncSource.AddObject(syncObject);
     }
 
     public void CreateOrGetSyncObject(string GUID, GameObject instance)
@@ -41,21 +41,21 @@ public class CustomPrefabSpawner : SpawnManager<CustomSyncModelObject>
             {
                 syncObject.GameObject = instance;
                 instance.GetComponent<CustomTransformSynchronizer>().TransformDataModel = syncObject.transform;
+                instance.GetComponentInChildren<BoxType>().ChangeBoxType(syncObject.BoxType.Value);
                 return;
             }
         }
-        
-        CustomSyncModelObject createdSyncObject = new CustomSyncModelObject(GUID);
+
+        CustomSyncModelObject createdSyncObject = new CustomSyncModelObject(GUID, instance.GetComponentInChildren<BoxType>().boxType);
 
         createdSyncObject.transform.Position.Value = instance.transform.localPosition;
         createdSyncObject.transform.Rotation.Value = instance.transform.localRotation;
         createdSyncObject.transform.Scale.Value = instance.transform.localScale;
 
         createdSyncObject.GameObject = instance;
-
         instance.GetComponent<CustomTransformSynchronizer>().TransformDataModel = createdSyncObject.transform;
 
-        
+
         if (SyncSource != null) SyncSource.AddObject(createdSyncObject);
 
     }
@@ -72,12 +72,16 @@ public class CustomPrefabSpawner : SpawnManager<CustomSyncModelObject>
 
     public override void Delete(CustomSyncModelObject objectToDelete)
     {
-        if(SyncSource != null) SyncSource.RemoveObject(objectToDelete);
+        if (SyncSource != null) SyncSource.RemoveObject(objectToDelete);
     }
 
     protected override void InstantiateFromNetwork(CustomSyncModelObject addedObject)
     {
-        if (addedObject.GameObject != null || addedObject.GUID.Value != "") return;
+        if (addedObject.GameObject != null || addedObject.GUID.Value != "")
+        {
+            Debug.Log("Input is null, ending");
+            return;
+        }
 
         BoxFactory boxFactory = new BoxFactory();
 
@@ -90,7 +94,7 @@ public class CustomPrefabSpawner : SpawnManager<CustomSyncModelObject>
 
     protected override void RemoveFromNetwork(CustomSyncModelObject removedObject)
     {
-        if(removedObject.GameObject != null)
+        if (removedObject.GameObject != null)
         {
             Destroy(removedObject.GameObject);
             removedObject.GameObject = null;
@@ -100,7 +104,6 @@ public class CustomPrefabSpawner : SpawnManager<CustomSyncModelObject>
     protected override void SetDataModelSource()
     {
         var rootObjectElement = SharingStage.Instance.Manager.GetRootSyncObject();
-
         //SharingStage.SyncRoot is hardwired to SyncSpawnedObject... 
         //I have no idea why...
         //So i create my own custom root
@@ -113,24 +116,27 @@ public class CustomPrefabSpawner : SpawnManager<CustomSyncModelObject>
 
     private IEnumerator WaitForPopulatedSyncSource()
     {
-        yield return new WaitForSeconds(2);
-
-        if (SyncSource.GetDataArray().Length == 0)
+        while (true)
         {
-            if (DataModelSourceSet != null) DataModelSourceSet.Invoke();
-            Debug.Log("Create SyncObjects");
-        }
-        else
-        {
-            NumberOfLocalEntities = gameObject.GetComponentsInChildren<BoxActor>().Length;
 
-            if (SyncSource.GetDataArray().Length == NumberOfLocalEntities)
+            yield return new WaitForSeconds(2);
+            if (SyncSource.GetDataArray().Length == 0)
             {
                 if (DataModelSourceSet != null) DataModelSourceSet.Invoke();
+                Debug.Log("Create SyncObjects");
             }
             else
             {
-                Debug.Log("Fuck...");
+                NumberOfLocalEntities = gameObject.GetComponentsInChildren<BoxActor>().Length;
+
+                if (SyncSource.GetDataArray().Length == NumberOfLocalEntities)
+                {
+                    if (DataModelSourceSet != null) DataModelSourceSet.Invoke();
+                }
+                else
+                {
+                    Debug.Log("Fuck...");
+                }
             }
         }
     }

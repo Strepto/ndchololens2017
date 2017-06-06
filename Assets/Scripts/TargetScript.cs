@@ -7,45 +7,66 @@ using UnityEngine.Events;
 
 [RequireComponent(typeof(ParticleSystem))]
 [RequireComponent(typeof(AudioSource))]
-public class TargetScript : MonoBehaviour, IFocusable {
+public class TargetScript : MonoBehaviour, IFocusable
+{
 
     ParticleSystem particlesSystem;
     AudioSource audioSource;
-    private bool targetHasBeenFound = false;
-    
-    public event Action<GameObject> targetSeen;
+    private bool targetIsActive = true;
+    private GameStateManager gameStateManager;
+
+    public event Action<TargetScript> TargetSeenEvent;
+
+
+
+    void Start()
+    {
+        particlesSystem = GetComponent<ParticleSystem>();
+        audioSource = GetComponent<AudioSource>();
+        gameStateManager = GameStateManager.Instance;
+    }
+
+    public void Reset()
+    {
+        targetIsActive = true;
+        GetComponent<Renderer>().enabled = true;
+    }
+
+    void Update()
+    {
+
+    }
 
 
     void IFocusable.OnFocusEnter()
     {
-        if (targetHasBeenFound == false)
+        if (gameStateManager.CurrentGameState == GameState.Playing)
         {
-            particlesSystem.Play();
-            audioSource.Play();
-            if(targetSeen != null)
+            if (targetIsActive == true)
             {
-                targetSeen.Invoke(gameObject);
+                particlesSystem.Play();
+                audioSource.Play();
+                if (TargetSeenEvent != null)
+                {
+                    TargetSeenEvent.Invoke(this);
+                    TargetSeenEvent = null;
+                }
+                targetIsActive = false;
+                GetComponent<Renderer>().enabled = false;
             }
-            targetHasBeenFound = true;
-            GetComponent<Renderer>().enabled = false;
         }
+
     }
 
     void IFocusable.OnFocusExit()
     {
     }
 
-
-
-    // Use this for initialization
-    void Start () {
+    internal void RemoveTarget()
+    {
         
-        particlesSystem = GetComponent<ParticleSystem>();
-        audioSource = GetComponent<AudioSource>();
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+        targetIsActive = false;
+        TargetSeenEvent = null;
+        GetComponent<Renderer>().enabled = false;
+    }
 }

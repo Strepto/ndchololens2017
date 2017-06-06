@@ -6,9 +6,6 @@ using UnityEngine;
 
 public class BoxTransform : MonoBehaviour, IFocusable, ISpeechHandler, IManipulationHandler
 {
-
-
-
     Vector3? prevCumulativeDelta;
     private bool isManipulating = false;
     private ManipulationModes manipulationMode = ManipulationModes.Scale;
@@ -16,17 +13,7 @@ public class BoxTransform : MonoBehaviour, IFocusable, ISpeechHandler, IManipula
 
     void ISpeechHandler.OnSpeechKeywordRecognized(SpeechKeywordRecognizedEventData eventData)
     {
-        if (RecognizeKeyword(eventData, "scale cube"))
-        {
-            manipulationMode = ManipulationModes.Scale;
-        }
-
-        if (RecognizeKeyword(eventData, "move cube"))
-        {
-            manipulationMode = ManipulationModes.Move;
-        }
-
-        if (RecognizeKeyword(eventData, "remove"))
+        if (RecognizeKeyword(eventData, "remove target"))
         {
             Destroy(gameObject);
         }

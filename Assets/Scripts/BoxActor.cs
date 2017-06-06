@@ -1,16 +1,18 @@
 ﻿using System;
 using HoloToolkit.Sharing;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class BoxActor : MonoBehaviour
 {
-    public string GUID;
-
+    private Guid guid = Guid.NewGuid();
+    public string GUID { get {return guid.ToString();} set {guid = new Guid(value);}}
+    
     private CustomPrefabSpawner SpawnManager;
 
     void Start()
     {
-        SpawnManager = this.transform.parent.transform.parent.GetComponent<CustomPrefabSpawner>();
+        SpawnManager =  GameObject.Find("World").GetComponent<CustomPrefabSpawner>();
         SpawnManager.DataModelSourceSet += Connected;
         
     }
