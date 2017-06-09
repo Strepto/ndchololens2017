@@ -34,7 +34,6 @@ public class TargetScript : MonoBehaviour, IFocusable
         audioSource = GetComponent<AudioSource>();
         gameStateManager = GameStateManager.Instance;
         preStartScale = transform.localScale;
-        
     }
 
     public void ResetTarget()
@@ -64,6 +63,7 @@ public class TargetScript : MonoBehaviour, IFocusable
                             TargetSeenEvent.Invoke(this);
                         }
                         targetIsActive = false;
+                        transform.localScale = preStartScale;
                         GetComponent<Renderer>().enabled = false;
                     }
                     else
@@ -82,6 +82,13 @@ public class TargetScript : MonoBehaviour, IFocusable
         }
     }
 
+    private void OnDestroy()
+    {
+        if (isFocused)
+        {
+            isFocused = false;
+        }
+    }
 
     void IFocusable.OnFocusEnter()
     {
