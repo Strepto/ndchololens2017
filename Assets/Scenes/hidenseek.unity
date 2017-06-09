@@ -846,28 +846,28 @@ Prefab:
         type: 2}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 4300008, guid: 8b9e8673ce345b1409c905e72d360220, type: 3}
+      objectReference: {fileID: 4300006, guid: 8b9e8673ce345b1409c905e72d360220, type: 3}
     - target: {fileID: 4926851935698352, guid: bddfc11f0111ba942896fc323130b1a8, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0.7071072
+      value: -0.49999988
       objectReference: {fileID: 0}
     - target: {fileID: 4926851935698352, guid: bddfc11f0111ba942896fc323130b1a8, type: 2}
       propertyPath: m_LocalRotation.y
-      value: -0.0000002528811
+      value: -0.5000005
       objectReference: {fileID: 0}
     - target: {fileID: 4926851935698352, guid: bddfc11f0111ba942896fc323130b1a8, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0.00000020933122
+      value: -0.49999958
       objectReference: {fileID: 0}
     - target: {fileID: 4926851935698352, guid: bddfc11f0111ba942896fc323130b1a8, type: 2}
       propertyPath: m_LocalRotation.w
-      value: -0.7071065
+      value: -0.5000001
       objectReference: {fileID: 0}
     - target: {fileID: 23105157252721752, guid: bddfc11f0111ba942896fc323130b1a8,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: a1cdae838d735d44ba62aa23e08c1a77, type: 2}
+      objectReference: {fileID: 2100000, guid: 0c7f2a5bde19ccc4db1e27f96b7a64bc, type: 2}
     - target: {fileID: 114104991237639712, guid: bddfc11f0111ba942896fc323130b1a8,
         type: 2}
       propertyPath: GUID
@@ -972,6 +972,12 @@ GameObject:
   m_PrefabParentObject: {fileID: 1872455418491970, guid: 9cea8ae49d5c0fa4e9547589ce94f6e7,
     type: 2}
   m_PrefabInternal: {fileID: 631337942}
+--- !u!114 &435222440 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114344324585124456, guid: 9cea8ae49d5c0fa4e9547589ce94f6e7,
+    type: 2}
+  m_PrefabInternal: {fileID: 631337942}
+  m_Script: {fileID: 11500000, guid: e25123dc6cc80814896794fe331931ab, type: 3}
 --- !u!4 &435222442 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4534030054771976, guid: 9cea8ae49d5c0fa4e9547589ce94f6e7,
@@ -1188,6 +1194,12 @@ GameObject:
   m_PrefabParentObject: {fileID: 1872455418491970, guid: 9cea8ae49d5c0fa4e9547589ce94f6e7,
     type: 2}
   m_PrefabInternal: {fileID: 804087172}
+--- !u!114 &545650346 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114344324585124456, guid: 9cea8ae49d5c0fa4e9547589ce94f6e7,
+    type: 2}
+  m_PrefabInternal: {fileID: 804087172}
+  m_Script: {fileID: 11500000, guid: e25123dc6cc80814896794fe331931ab, type: 3}
 --- !u!4 &545650348 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4534030054771976, guid: 9cea8ae49d5c0fa4e9547589ce94f6e7,
@@ -1939,12 +1951,12 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keywords:
-  - Keyword: new box
+  - Keyword: move
     Response:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 1773961790}
-          m_MethodName: PressButton
+        - m_Target: {fileID: 1067608565}
+          m_MethodName: Check
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1956,12 +1968,12 @@ MonoBehaviour:
           m_CallState: 2
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-  - Keyword: new sphere
+  - Keyword: scale
     Response:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_MethodName: PressButton
+        - m_Target: {fileID: 435222440}
+          m_MethodName: Check
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -1973,12 +1985,12 @@ MonoBehaviour:
           m_CallState: 2
       m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine, Version=0.0.0.0, Culture=neutral,
         PublicKeyToken=null
-  - Keyword: peace out
+  - Keyword: rotate
     Response:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 0}
-          m_MethodName: PressButton
+        - m_Target: {fileID: 545650346}
+          m_MethodName: Check
           m_Mode: 1
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -2603,6 +2615,12 @@ GameObject:
   m_PrefabParentObject: {fileID: 1872455418491970, guid: 9cea8ae49d5c0fa4e9547589ce94f6e7,
     type: 2}
   m_PrefabInternal: {fileID: 2140458870}
+--- !u!114 &1067608565 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 114344324585124456, guid: 9cea8ae49d5c0fa4e9547589ce94f6e7,
+    type: 2}
+  m_PrefabInternal: {fileID: 2140458870}
+  m_Script: {fileID: 11500000, guid: e25123dc6cc80814896794fe331931ab, type: 3}
 --- !u!4 &1067608567 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4534030054771976, guid: 9cea8ae49d5c0fa4e9547589ce94f6e7,
@@ -2747,19 +2765,19 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4926851935698352, guid: bddfc11f0111ba942896fc323130b1a8, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0.5000002
+      value: -0.000000372529
       objectReference: {fileID: 0}
     - target: {fileID: 4926851935698352, guid: bddfc11f0111ba942896fc323130b1a8, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.50000024
+      value: -0.00000038842228
       objectReference: {fileID: 0}
     - target: {fileID: 4926851935698352, guid: bddfc11f0111ba942896fc323130b1a8, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0.49999937
+      value: 0.00000046361532
       objectReference: {fileID: 0}
     - target: {fileID: 4926851935698352, guid: bddfc11f0111ba942896fc323130b1a8, type: 2}
       propertyPath: m_LocalRotation.w
-      value: -0.5000003
+      value: -1
       objectReference: {fileID: 0}
     - target: {fileID: 23105157252721752, guid: bddfc11f0111ba942896fc323130b1a8,
         type: 2}
@@ -3847,12 +3865,6 @@ MonoBehaviour:
     type: 2}
   m_PrefabInternal: {fileID: 1473143621}
   m_Script: {fileID: 11500000, guid: 1f6d1819569e5a546babce5b953252f2, type: 3}
---- !u!114 &1773961790 stripped
-MonoBehaviour:
-  m_PrefabParentObject: {fileID: 114518995079713348, guid: b1ab3fdff950fe74e9759a1ab430802c,
-    type: 2}
-  m_PrefabInternal: {fileID: 1473143621}
-  m_Script: {fileID: 11500000, guid: 1defb4589f673f249b6c1b428795a32e, type: 3}
 --- !u!4 &1791869012 stripped
 Transform:
   m_PrefabParentObject: {fileID: 4361748274248804, guid: 35cdd312a94a1464ab2766229f80eb88,
