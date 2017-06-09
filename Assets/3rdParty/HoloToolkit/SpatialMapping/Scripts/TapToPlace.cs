@@ -93,9 +93,11 @@ namespace HoloToolkit.Unity.SpatialMapping
             {
 
 
-                if(gameObject.layer != LayerMask.NameToLayer("Ignore Raycast")){
-                    IgnoreRaycasts(true);
+                if (gameObject.layer != LayerMask.NameToLayer("Ignore Raycast"))
+                {
+
                     InputManager.Instance.PushModalInputHandler(gameObject);
+                    IgnoreRaycasts(true);
                 }
                 // Do a raycast into the world that will only hit the Spatial Mapping mesh.
                 Vector3 headPosition = Camera.main.transform.position;
@@ -154,14 +156,20 @@ namespace HoloToolkit.Unity.SpatialMapping
         public virtual void OnInputClicked(InputClickedEventData eventData)
         {
             // On each tap gesture, toggle whether the user is in placing mode.
+            if (GameStateManager.Instance.CurrentGameState != GameState.Configuration && IsBeingPlaced == false)
+            {
+                Debug.Log("Tap to place is inactive in play mode");
+                return;
+            }
+
             IsBeingPlaced = !IsBeingPlaced;
+
 
             // If the user is in placing mode, display the spatial mapping mesh.
             if (IsBeingPlaced)
             {
-                InputManager.Instance.PushModalInputHandler(gameObject);
-                spatialMappingManager.DrawVisualMeshes = true;
 
+                spatialMappingManager.DrawVisualMeshes = true;
                 Debug.Log(gameObject.name + " : Removing existing world anchor if any.");
 
                 anchorManager.RemoveAnchor(gameObject);

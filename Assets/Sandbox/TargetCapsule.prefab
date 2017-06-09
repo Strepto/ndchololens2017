@@ -27,6 +27,7 @@ GameObject:
   - component: {fileID: 114951585297532426}
   - component: {fileID: 64436979276025300}
   - component: {fileID: 114824507525503874}
+  - component: {fileID: 114562976075614220}
   m_Layer: 0
   m_Name: TargetCapsule
   m_TagString: Untagged
@@ -181,6 +182,21 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114562976075614220
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1571009036116464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dbad991a9894486418e4988222483ef8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SavedAnchorFriendlyName: ChiliPlace
+  PlaceParentOnTap: 0
+  ParentGameObjectToPlace: {fileID: 0}
+  IsBeingPlaced: 0
 --- !u!114 &114824507525503874
 MonoBehaviour:
   m_ObjectHideFlags: 1

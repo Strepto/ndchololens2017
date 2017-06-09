@@ -52,6 +52,7 @@ public class HoloAndSeekManager : Singleton<HoloAndSeekManager>
 
     public void ResetGame(bool startGame){
         AllTargets.ForEach(t => t.Reset());
+        UsedTargets.Clear();
         Score = 0;
         if(startGame){
             timestampStart = Time.unscaledTime;
