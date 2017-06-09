@@ -219,6 +219,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2accd2ab3b795d7449aea7360d96b2f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  targetExplodeScaleFactor: 2.65
+  timeToExplode: 0.54
 --- !u!198 &198585523178240316
 ParticleSystem:
   m_ObjectHideFlags: 1
@@ -274,7 +276,7 @@ ParticleSystem:
   moveWithTransform: 0
   moveWithCustomTransform: {fileID: 0}
   scalingMode: 1
-  randomSeed: 1860033038
+  randomSeed: -357728408
   InitialModule:
     serializedVersion: 3
     enabled: 1

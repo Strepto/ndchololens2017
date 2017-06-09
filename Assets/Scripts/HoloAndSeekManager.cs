@@ -51,7 +51,7 @@ public class HoloAndSeekManager : Singleton<HoloAndSeekManager>
     }
 
     public void ResetGame(bool startGame){
-        AllTargets.ForEach(t => t.Reset());
+        AllTargets.ForEach(t => t.ResetTarget());
         UsedTargets.Clear();
         Score = 0;
         if(startGame){
@@ -78,6 +78,7 @@ public class HoloAndSeekManager : Singleton<HoloAndSeekManager>
         };
         foreach(var t in targetPool){
             t.RemoveTarget();
+            t.TargetSeenEvent -= FoundTarget;
         }
 
         

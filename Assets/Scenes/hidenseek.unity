@@ -846,28 +846,28 @@ Prefab:
         type: 2}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 4300006, guid: 8b9e8673ce345b1409c905e72d360220, type: 3}
+      objectReference: {fileID: 4300002, guid: 8b9e8673ce345b1409c905e72d360220, type: 3}
     - target: {fileID: 4926851935698352, guid: bddfc11f0111ba942896fc323130b1a8, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0.49999967
+      value: 0.00000022197248
       objectReference: {fileID: 0}
     - target: {fileID: 4926851935698352, guid: bddfc11f0111ba942896fc323130b1a8, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.5000001
+      value: 0.7071072
       objectReference: {fileID: 0}
     - target: {fileID: 4926851935698352, guid: bddfc11f0111ba942896fc323130b1a8, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0.49999988
+      value: 0.7071065
       objectReference: {fileID: 0}
     - target: {fileID: 4926851935698352, guid: bddfc11f0111ba942896fc323130b1a8, type: 2}
       propertyPath: m_LocalRotation.w
-      value: -0.50000036
+      value: -0.00000017842261
       objectReference: {fileID: 0}
     - target: {fileID: 23105157252721752, guid: bddfc11f0111ba942896fc323130b1a8,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0c7f2a5bde19ccc4db1e27f96b7a64bc, type: 2}
+      objectReference: {fileID: 2100000, guid: 4b2b63da5a374714790e8dcfedda42c9, type: 2}
     - target: {fileID: 114104991237639712, guid: bddfc11f0111ba942896fc323130b1a8,
         type: 2}
       propertyPath: GUID
@@ -2745,30 +2745,30 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4926851935698352, guid: bddfc11f0111ba942896fc323130b1a8, type: 2}
       propertyPath: m_LocalRotation.x
-      value: -0.000000547909
+      value: 0.0000005900559
       objectReference: {fileID: 0}
     - target: {fileID: 4926851935698352, guid: bddfc11f0111ba942896fc323130b1a8, type: 2}
       propertyPath: m_LocalRotation.y
-      value: -0.000000042146823
+      value: 0.7071071
       objectReference: {fileID: 0}
     - target: {fileID: 4926851935698352, guid: bddfc11f0111ba942896fc323130b1a8, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0.70710653
+      value: -0.000000084293696
       objectReference: {fileID: 0}
     - target: {fileID: 4926851935698352, guid: bddfc11f0111ba942896fc323130b1a8, type: 2}
       propertyPath: m_LocalRotation.w
-      value: -0.7071071
+      value: 0.70710653
       objectReference: {fileID: 0}
     - target: {fileID: 23105157252721752, guid: bddfc11f0111ba942896fc323130b1a8,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 0c7f2a5bde19ccc4db1e27f96b7a64bc, type: 2}
+      objectReference: {fileID: 2100000, guid: 6c7f965a6585fda4f9cecffedae5bcd4, type: 2}
     - target: {fileID: 33955173505626188, guid: bddfc11f0111ba942896fc323130b1a8,
         type: 2}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 4300006, guid: 8b9e8673ce345b1409c905e72d360220, type: 3}
+      objectReference: {fileID: 4300000, guid: 8b9e8673ce345b1409c905e72d360220, type: 3}
     - target: {fileID: 114503542006360706, guid: bddfc11f0111ba942896fc323130b1a8,
         type: 2}
       propertyPath: m_Enabled
@@ -4085,7 +4085,7 @@ Prefab:
     - target: {fileID: 114518995079713348, guid: b1ab3fdff950fe74e9759a1ab430802c,
         type: 2}
       propertyPath: OnClickEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114518995079713348, guid: b1ab3fdff950fe74e9759a1ab430802c,
         type: 2}
@@ -4096,11 +4096,11 @@ Prefab:
         type: 2}
       propertyPath: OnClickEvent.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 189975488}
+      objectReference: {fileID: 189975486}
     - target: {fileID: 114518995079713348, guid: b1ab3fdff950fe74e9759a1ab430802c,
         type: 2}
       propertyPath: OnClickEvent.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ResetGame
+      value: SetGameStatePlaying
       objectReference: {fileID: 0}
     - target: {fileID: 114518995079713348, guid: b1ab3fdff950fe74e9759a1ab430802c,
         type: 2}

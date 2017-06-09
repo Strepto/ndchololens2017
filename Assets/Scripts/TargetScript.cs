@@ -17,56 +17,88 @@ public class TargetScript : MonoBehaviour, IFocusable
 
     public event Action<TargetScript> TargetSeenEvent;
 
+    private Vector3 preStartScale;
+    private Vector3 targetExplodeScale;
 
+    [Range(1f,10f)]
+    public float targetExplodeScaleFactor = 1.5f;
+    private bool isFocused;
+    float scaleT = 0f;
+
+    [Range(0.01f, 10f)]
+    public float timeToExplode = 1f;
 
     void Start()
     {
         particlesSystem = GetComponent<ParticleSystem>();
         audioSource = GetComponent<AudioSource>();
         gameStateManager = GameStateManager.Instance;
+        preStartScale = transform.localScale;
+        
     }
 
-    public void Reset()
+    public void ResetTarget()
     {
+
         targetIsActive = true;
         GetComponent<Renderer>().enabled = true;
+        preStartScale = transform.localScale;
+        targetExplodeScale = preStartScale * targetExplodeScaleFactor;
+        scaleT = 0f;
     }
 
     void Update()
     {
-
+        if (isFocused)
+        {
+            if (gameStateManager.CurrentGameState == GameState.Playing)
+            {
+                if (targetIsActive == true)
+                {
+                    if (scaleT == 1f)
+                    {
+                        particlesSystem.Play();
+                        audioSource.Play();
+                        if (TargetSeenEvent != null)
+                        {
+                            TargetSeenEvent.Invoke(this);
+                        }
+                        targetIsActive = false;
+                        GetComponent<Renderer>().enabled = false;
+                    }
+                    else
+                    {
+                        if(scaleT < 1f) {
+                            scaleT += Time.deltaTime / timeToExplode;
+                        }
+                        else
+                        {
+                            scaleT = 1f;
+                        }
+                        transform.localScale = Vector3.Slerp(preStartScale, targetExplodeScale, scaleT * scaleT);
+                    }
+                }
+            }
+        }
     }
 
 
     void IFocusable.OnFocusEnter()
     {
-        if (gameStateManager.CurrentGameState == GameState.Playing)
-        {
-            if (targetIsActive == true)
-            {
-                particlesSystem.Play();
-                audioSource.Play();
-                if (TargetSeenEvent != null)
-                {
-                    TargetSeenEvent.Invoke(this);
-                    TargetSeenEvent = null;
-                }
-                targetIsActive = false;
-                GetComponent<Renderer>().enabled = false;
-            }
-        }
+        isFocused = true;
+        
 
     }
 
     void IFocusable.OnFocusExit()
     {
+        isFocused = false;
     }
 
     internal void RemoveTarget()
     {
-        
+
         targetIsActive = false;
-        TargetSeenEvent = null;
         GetComponent<Renderer>().enabled = false;
     }
 }
