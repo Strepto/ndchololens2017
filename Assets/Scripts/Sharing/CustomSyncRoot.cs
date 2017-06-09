@@ -1,6 +1,5 @@
 ﻿using HoloToolkit.Sharing;
 using HoloToolkit.Sharing.SyncModel;
-using UnityEngine;
 
 public class CustomSyncRoot : SyncObject
 {
@@ -16,5 +15,4 @@ public class CustomSyncRoot : SyncObject
 
         InstantiatedModels.InitializeLocal(Element);
     }
-
 }

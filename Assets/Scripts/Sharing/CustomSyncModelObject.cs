@@ -8,6 +8,21 @@ public class CustomSyncModelObject : SyncObject
     [SyncData]
     public SyncTransform transform;
 
+    [SyncData]
+    public SyncString GUID;
+
+    
+    [SyncData]
+    public SyncInteger BoxType;
+
     //Local Data
     public GameObject GameObject { get; set; }
+
+    public CustomSyncModelObject() { }
+
+    public CustomSyncModelObject(string GUID, int boxType)
+    {
+        this.GUID.Value = GUID;
+        this.BoxType.Value = boxType;
+    }
 }

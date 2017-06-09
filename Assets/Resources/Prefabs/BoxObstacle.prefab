@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4928441715841044}
   - component: {fileID: 114503542006360706}
   - component: {fileID: 114616608299225986}
+  - component: {fileID: 114856390580402304}
+  - component: {fileID: 114104991237639712}
   m_Layer: 0
   m_Name: BoxObstacle
   m_TagString: Untagged
@@ -41,7 +43,6 @@ GameObject:
   - component: {fileID: 65168018222755496}
   - component: {fileID: 114976321299215766}
   - component: {fileID: 54607327693497694}
-  - component: {fileID: 114877146579309912}
   - component: {fileID: 114323891037398106}
   m_Layer: 0
   m_Name: BoxObstacleObject
@@ -56,7 +57,7 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1906948818407678}
-  m_LocalRotation: {x: 0.00000012142188, y: 0.7071067, z: -0.00000011920929, w: -0.7071068}
+  m_LocalRotation: {x: -0.0000005364418, y: -1, z: -3.1974426e-14, w: 0.00000023841858}
   m_LocalPosition: {x: 0, y: 0.5, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -143,6 +144,17 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &114104991237639712
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1811393384035484}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ae2abc158f50204fa0311b22805261e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114323891037398106
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -192,12 +204,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ffcdaceaa14cee142a256243150ba40b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114877146579309912
+--- !u!114 &114856390580402304
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1906948818407678}
+  m_GameObject: {fileID: 1811393384035484}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b23417901ab024e41b7c4f53e87a5a7b, type: 3}

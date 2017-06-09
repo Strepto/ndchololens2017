@@ -8,9 +8,6 @@ using UnityEngine;
 
 public class BoxTransform : MonoBehaviour, IFocusable, ISpeechHandler, IManipulationHandler
 {
-
-
-
     Vector3? prevCumulativeDelta;
     private bool isManipulating = false;
     private ManipulationModes manipulationMode = ManipulationModes.Scale;
@@ -23,17 +20,7 @@ public class BoxTransform : MonoBehaviour, IFocusable, ISpeechHandler, IManipula
 
     void ISpeechHandler.OnSpeechKeywordRecognized(SpeechKeywordRecognizedEventData eventData)
     {
-        if (RecognizeKeyword(eventData, "scale cube"))
-        {
-            manipulationMode = ManipulationModes.Scale;
-        }
-
-        if (RecognizeKeyword(eventData, "move cube"))
-        {
-            manipulationMode = ManipulationModes.Move;
-        }
-
-        if (RecognizeKeyword(eventData, "remove"))
+        if (RecognizeKeyword(eventData, "remove target"))
         {
             Destroy(gameObject);
         }
@@ -65,6 +52,10 @@ public class BoxTransform : MonoBehaviour, IFocusable, ISpeechHandler, IManipula
 
     private void StartManipulating()
     {
+        if(GameStateManager.Instance.CurrentGameState != GameState.Configuration)
+        {
+            return;
+        }
 		if(isManipulating){
 			return;
 		}
@@ -80,6 +71,11 @@ public class BoxTransform : MonoBehaviour, IFocusable, ISpeechHandler, IManipula
 
     void IManipulationHandler.OnManipulationUpdated(ManipulationEventData eventData)
     {
+        if (!isManipulating)
+        {
+            return;
+        }
+
         var manipulationMode = BoxManipulationManager.Instance.GetManipulationMode();
         if (manipulationMode == ManipulationModes.Scale)
         {
@@ -110,13 +106,14 @@ public class BoxTransform : MonoBehaviour, IFocusable, ISpeechHandler, IManipula
             {
                 var delta = (eventData.CumulativeDelta - prevCumulativeDelta.Value);
 
-                float rotateSpeed = 6.0f;
-                transform.RotateAround(transform.position, Camera.main.transform.up,
-                    -delta.x * rotateSpeed);
-                transform.RotateAround(transform.position, Camera.main.transform.forward,
-                    delta.y * rotateSpeed);
-                transform.RotateAround(transform.position, Camera.main.transform.right,
-                    delta.z * rotateSpeed);
+                float multiplier = 1.0f;
+                float cameraLocalYRotation = Camera.main.transform.localRotation.eulerAngles.y;
+
+                if (cameraLocalYRotation > 270 || cameraLocalYRotation < 90)
+                    multiplier = -1.0f;
+
+                var rotation = new Vector3(eventData.CumulativeDelta.y * -multiplier, eventData.CumulativeDelta.x * multiplier);
+                transform.Rotate(rotation * 4, Space.World);
             }
             prevCumulativeDelta = eventData.CumulativeDelta;
         }
@@ -134,7 +131,8 @@ public class BoxTransform : MonoBehaviour, IFocusable, ISpeechHandler, IManipula
 
     private void StopManipulating()
     {
-		if(!isManipulating){
+		if(!isManipulating)
+        {
 			return;
 		}
         isManipulating = false;

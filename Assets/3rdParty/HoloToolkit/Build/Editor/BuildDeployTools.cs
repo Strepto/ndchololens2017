@@ -113,11 +113,13 @@ namespace HoloToolkit.Unity
             var pinfo = new System.Diagnostics.ProcessStartInfo();
             pinfo.FileName = vs;
             pinfo.UseShellExecute = false;
+            pinfo.RedirectStandardOutput = false;
             string buildType = forceRebuildAppx ? "Rebuild" : "Build";
             pinfo.Arguments = string.Format("\"{0}\" /t:{2} /p:Configuration={1} /p:Platform=x86", solutionProjectPath, buildConfig, buildType);
             var p = new System.Diagnostics.Process();
-
+            
             Debug.Log(vs + " " + pinfo.Arguments);
+            
             p.StartInfo = pinfo;
             p.Start();
 

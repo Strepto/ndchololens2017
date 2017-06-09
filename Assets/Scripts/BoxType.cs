@@ -37,6 +37,7 @@ public class BoxType : MonoBehaviour {
         if (boxType == -1)
         {
             SetMeshAndMaterial(Random.Range(0, meshAndMatOptions.Count));
+            //Randomize rotation in increments of 90 degrees, to avoid completely identical looking boxes.
             gameObject.transform.Rotate(RandomizeRotation90Degrees());
         }
         else
@@ -44,11 +45,13 @@ public class BoxType : MonoBehaviour {
             SetMeshAndMaterial(boxType);
             //Not rotating randomly.
         }
-
-        //Randomize rotation in increments of 90 degrees, to avoid completely identical looking boxes.
+        
     }
 
-
+    public void ChangeBoxType(int boxType){
+        this.boxType = boxType;
+        SetMeshAndMaterial(boxType);
+    }
 
     private void SetMeshAndMaterial(int meshAndMatIndex)
     {

@@ -25,7 +25,6 @@ GameObject:
   - component: {fileID: 114685836661798286}
   - component: {fileID: 114756071401535300}
   - component: {fileID: 54845669976746304}
-  - component: {fileID: 114843302901494576}
   m_Layer: 0
   m_Name: BaseCube
   m_TagString: Untagged
@@ -142,26 +141,3 @@ MonoBehaviour:
   PlaceParentOnTap: 0
   ParentGameObjectToPlace: {fileID: 0}
   IsBeingPlaced: 0
---- !u!114 &114843302901494576
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1506481581300358}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1e3a903a1e1e0704dba871c722cf38cb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  boxType: 0
-  meshAndMatOptions:
-  - mesh: {fileID: 4300000, guid: 8b9e8673ce345b1409c905e72d360220, type: 3}
-    material: {fileID: 2100000, guid: 6c7f965a6585fda4f9cecffedae5bcd4, type: 2}
-  - mesh: {fileID: 4300002, guid: 8b9e8673ce345b1409c905e72d360220, type: 3}
-    material: {fileID: 2100000, guid: 4b2b63da5a374714790e8dcfedda42c9, type: 2}
-  - mesh: {fileID: 4300004, guid: 8b9e8673ce345b1409c905e72d360220, type: 3}
-    material: {fileID: 2100000, guid: 6c18119ab6153e24eb50d266a59c1d8d, type: 2}
-  - mesh: {fileID: 4300006, guid: 8b9e8673ce345b1409c905e72d360220, type: 3}
-    material: {fileID: 2100000, guid: 0c7f2a5bde19ccc4db1e27f96b7a64bc, type: 2}
-  - mesh: {fileID: 4300008, guid: 8b9e8673ce345b1409c905e72d360220, type: 3}
-    material: {fileID: 2100000, guid: a1cdae838d735d44ba62aa23e08c1a77, type: 2}
