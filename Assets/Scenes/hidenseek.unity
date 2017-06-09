@@ -846,28 +846,28 @@ Prefab:
         type: 2}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 4300002, guid: 8b9e8673ce345b1409c905e72d360220, type: 3}
+      objectReference: {fileID: 4300008, guid: 8b9e8673ce345b1409c905e72d360220, type: 3}
     - target: {fileID: 4926851935698352, guid: bddfc11f0111ba942896fc323130b1a8, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0.00000022197248
-      objectReference: {fileID: 0}
-    - target: {fileID: 4926851935698352, guid: bddfc11f0111ba942896fc323130b1a8, type: 2}
-      propertyPath: m_LocalRotation.y
       value: 0.7071072
       objectReference: {fileID: 0}
     - target: {fileID: 4926851935698352, guid: bddfc11f0111ba942896fc323130b1a8, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: -0.0000002528811
+      objectReference: {fileID: 0}
+    - target: {fileID: 4926851935698352, guid: bddfc11f0111ba942896fc323130b1a8, type: 2}
       propertyPath: m_LocalRotation.z
-      value: 0.7071065
+      value: -0.00000020933122
       objectReference: {fileID: 0}
     - target: {fileID: 4926851935698352, guid: bddfc11f0111ba942896fc323130b1a8, type: 2}
       propertyPath: m_LocalRotation.w
-      value: -0.00000017842261
+      value: -0.7071065
       objectReference: {fileID: 0}
     - target: {fileID: 23105157252721752, guid: bddfc11f0111ba942896fc323130b1a8,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 4b2b63da5a374714790e8dcfedda42c9, type: 2}
+      objectReference: {fileID: 2100000, guid: a1cdae838d735d44ba62aa23e08c1a77, type: 2}
     - target: {fileID: 114104991237639712, guid: bddfc11f0111ba942896fc323130b1a8,
         type: 2}
       propertyPath: GUID
@@ -1067,11 +1067,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   RecognizerStart: 0
   Keywords:
-  - Keyword: scale cube
+  - Keyword: scale
     KeyCode: 50
-  - Keyword: move cube
+  - Keyword: move
     KeyCode: 51
   - Keyword: remove target
+    KeyCode: 53
+  - Keyword: rotate
     KeyCode: 53
 --- !u!114 &520854451
 MonoBehaviour:
@@ -2745,30 +2747,30 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4926851935698352, guid: bddfc11f0111ba942896fc323130b1a8, type: 2}
       propertyPath: m_LocalRotation.x
-      value: 0.0000005900559
+      value: -0.5000002
       objectReference: {fileID: 0}
     - target: {fileID: 4926851935698352, guid: bddfc11f0111ba942896fc323130b1a8, type: 2}
       propertyPath: m_LocalRotation.y
-      value: 0.7071071
+      value: 0.50000024
       objectReference: {fileID: 0}
     - target: {fileID: 4926851935698352, guid: bddfc11f0111ba942896fc323130b1a8, type: 2}
       propertyPath: m_LocalRotation.z
-      value: -0.000000084293696
+      value: -0.49999937
       objectReference: {fileID: 0}
     - target: {fileID: 4926851935698352, guid: bddfc11f0111ba942896fc323130b1a8, type: 2}
       propertyPath: m_LocalRotation.w
-      value: 0.70710653
+      value: -0.5000003
       objectReference: {fileID: 0}
     - target: {fileID: 23105157252721752, guid: bddfc11f0111ba942896fc323130b1a8,
         type: 2}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 6c7f965a6585fda4f9cecffedae5bcd4, type: 2}
+      objectReference: {fileID: 2100000, guid: a1cdae838d735d44ba62aa23e08c1a77, type: 2}
     - target: {fileID: 33955173505626188, guid: bddfc11f0111ba942896fc323130b1a8,
         type: 2}
       propertyPath: m_Mesh
       value: 
-      objectReference: {fileID: 4300000, guid: 8b9e8673ce345b1409c905e72d360220, type: 3}
+      objectReference: {fileID: 4300008, guid: 8b9e8673ce345b1409c905e72d360220, type: 3}
     - target: {fileID: 114503542006360706, guid: bddfc11f0111ba942896fc323130b1a8,
         type: 2}
       propertyPath: m_Enabled
@@ -4241,7 +4243,7 @@ MonoBehaviour:
           m_CallState: 2
       m_TypeName: TabularButton+BooleanUnityEvent, Assembly-CSharp, Version=0.0.0.0,
         Culture=neutral, PublicKeyToken=null
-  currentTab: {fileID: 79294865}
+  currentTab: {fileID: 1067608564}
 --- !u!4 &2041805208
 Transform:
   m_ObjectHideFlags: 0
