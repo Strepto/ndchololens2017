@@ -28,6 +28,8 @@ GameObject:
   - component: {fileID: 64436979276025300}
   - component: {fileID: 114824507525503874}
   - component: {fileID: 114562976075614220}
+  - component: {fileID: 114660132299098808}
+  - component: {fileID: 114483495343680914}
   m_Layer: 0
   m_Name: TargetCapsule
   m_TagString: Untagged
@@ -182,6 +184,17 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 0
+--- !u!114 &114483495343680914
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1571009036116464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8c9c79f5ef13154192a9e49a96c1368, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114562976075614220
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -197,6 +210,17 @@ MonoBehaviour:
   PlaceParentOnTap: 0
   ParentGameObjectToPlace: {fileID: 0}
   IsBeingPlaced: 0
+--- !u!114 &114660132299098808
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1571009036116464}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b23417901ab024e41b7c4f53e87a5a7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114824507525503874
 MonoBehaviour:
   m_ObjectHideFlags: 1

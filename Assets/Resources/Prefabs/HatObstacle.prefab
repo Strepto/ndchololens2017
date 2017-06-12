@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4123444851924378}
   - component: {fileID: 114967310508576978}
   - component: {fileID: 114092888311096574}
+  - component: {fileID: 114853857994137678}
+  - component: {fileID: 114235036601356110}
   m_Layer: 0
   m_Name: HatObstacle
   m_TagString: Untagged
@@ -435,6 +437,28 @@ MonoBehaviour:
   PlaceParentOnTap: 0
   ParentGameObjectToPlace: {fileID: 0}
   IsBeingPlaced: 0
+--- !u!114 &114235036601356110
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1004137656479928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8c9c79f5ef13154192a9e49a96c1368, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114853857994137678
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1004137656479928}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b23417901ab024e41b7c4f53e87a5a7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114967310508576978
 MonoBehaviour:
   m_ObjectHideFlags: 1

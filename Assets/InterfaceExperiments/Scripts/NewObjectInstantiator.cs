@@ -7,6 +7,8 @@ using HoloToolkit.Unity.SpatialMapping;
 public class NewObjectInstantiator : MonoBehaviour
 {
     public GameObject InstatiatedPrefab;
+    public CustomPrefabSpawner SpawnManager;
+    public ObjectType type;
 
     public void InstantiatePrefab()
     {
@@ -20,17 +22,17 @@ public class NewObjectInstantiator : MonoBehaviour
 
         yield return new WaitForEndOfFrame();
         var go = Instantiate(InstatiatedPrefab, pos, Quaternion.identity, GameObject.Find("Obstacles").transform);
+
+        SpawnManager.SpawnObject(go, type);
+
         if (go.GetComponent<TargetScript>())
         {
             HoloAndSeekManager.Instance.AllTargets.Add(go.GetComponent<TargetScript>());
         }
-        if(go.GetComponent<TapToPlace>()){
+
+        if (go.GetComponent<TapToPlace>())
+        {
             go.GetComponent<TapToPlace>().IsBeingPlaced = true;
         }
-        // var syncDataModel = new SyncSpawnedObject();
-        // GameObject.Find("_Dynamic").GetComponent<PrefabSpawnManager>().Spawn(syncDataModel, pos, Quaternion.identity, null, "ObstacleBox", false);
-        //Instantiate(InstatiatedPrefab, pos, new Quaternion(), GameObject.Find("_Dynamic").transform);
-        // syncDataModel.GameObject.AddComponent<TransformSynchronizer>();
-
     }
 }

@@ -4,68 +4,62 @@ using HoloToolkit.Sharing;
 using System;
 using HoloToolkit.Sharing.SyncModel;
 using System.Collections;
+using System.Collections.Generic;
+
+public enum ObjectType
+{
+    BoxMex = 0,
+    Box = 1,
+    Cactus = 2,
+    Hat = 3,
+    Spider = 4,
+    Target = 5,
+    ApplicationState = 6
+}
+
+
 
 public class CustomPrefabSpawner : SpawnManager<CustomSyncModelObject>
 {
+    public List<GameObject> Objects; //Order matters on this, I know... Great code indeed
     private CustomSyncRoot _syncRoot;
 
-    public event Action DataModelSourceSet;
-
-    private int NumberOfLocalEntities;
-
-    protected override void Start()
+    public void SpawnObject(GameObject instance, ObjectType type)
     {
-        base.Start();
-    }
-
-    public void SpawnObject()
-    {
-        CustomSyncModelObject syncObject = CreateSyncModelObject();
-
-        BoxFactory boxFactory = new BoxFactory();
-
-        GameObject instance = boxFactory.CreateInstance();
+        CustomSyncModelObject syncObject = CreateSyncModelObject(type, instance);
 
         syncObject.GameObject = instance;
 
+        if (instance.GetComponent<TargetScript>())
+        {
+            var targetScript = instance.GetComponent<TargetScript>();
+            syncObject.isActive.BooleanValueChanged += targetScript.TargetRemoteStateChanged;
+        }
+
+
+        instance.GetComponent<SyncObjectAccessor>().SyncObject = syncObject;
         instance.GetComponent<CustomTransformSynchronizer>().TransformDataModel = syncObject.transform;
 
         if (SyncSource != null) SyncSource.AddObject(syncObject);
     }
 
-    public void CreateOrGetSyncObject(string GUID, GameObject instance)
-    {
-        foreach (CustomSyncModelObject syncObject in _syncRoot.InstantiatedModels)
-        {
-            if (syncObject.GUID.Value == GUID)
-            {
-                syncObject.GameObject = instance;
-                instance.GetComponent<CustomTransformSynchronizer>().TransformDataModel = syncObject.transform;
-                instance.GetComponentInChildren<BoxType>().ChangeBoxType(syncObject.BoxType.Value);
-                return;
-            }
-        }
-
-        CustomSyncModelObject createdSyncObject = new CustomSyncModelObject(GUID, instance.GetComponentInChildren<BoxType>().boxType);
-
-        createdSyncObject.transform.Position.Value = instance.transform.localPosition;
-        createdSyncObject.transform.Rotation.Value = instance.transform.localRotation;
-        createdSyncObject.transform.Scale.Value = instance.transform.localScale;
-
-        createdSyncObject.GameObject = instance;
-        instance.GetComponent<CustomTransformSynchronizer>().TransformDataModel = createdSyncObject.transform;
-
-
-        if (SyncSource != null) SyncSource.AddObject(createdSyncObject);
-
-    }
-
-    private CustomSyncModelObject CreateSyncModelObject()
+    public void SpawnApplicationStateSyncObject()
     {
         CustomSyncModelObject syncObject = new CustomSyncModelObject();
-        syncObject.transform.Position.Value = Vector3.zero;
-        syncObject.transform.Rotation.Value = Quaternion.identity;
-        syncObject.transform.Scale.Value = Vector3.one;
+        syncObject.Type.Value = (int)ObjectType.ApplicationState;
+
+        if (SyncSource != null) SyncSource.AddObject(syncObject);
+    }
+
+    private CustomSyncModelObject CreateSyncModelObject(ObjectType type, GameObject instance)
+    {
+        CustomSyncModelObject syncObject = new CustomSyncModelObject();
+
+        syncObject.transform.Position.Value = instance.transform.localPosition;
+        syncObject.transform.Rotation.Value = instance.transform.localRotation; 
+        syncObject.transform.Scale.Value = instance.transform.localScale;
+
+        syncObject.Type.Value = (int)type;
 
         return syncObject;
     }
@@ -77,18 +71,32 @@ public class CustomPrefabSpawner : SpawnManager<CustomSyncModelObject>
 
     protected override void InstantiateFromNetwork(CustomSyncModelObject addedObject)
     {
-        if (addedObject.GameObject != null || addedObject.GUID.Value != "")
+        if (addedObject.GameObject != null) return;
+
+        if((ObjectType)addedObject.Type.Value == ObjectType.ApplicationState)
         {
-            Debug.Log("Input is null, ending");
+            HoloAndSeekManager.Instance.SetSyncObject(addedObject);
             return;
         }
 
-        BoxFactory boxFactory = new BoxFactory();
+        int type = addedObject.Type.Value;
 
-        GameObject instance = boxFactory.CreateInstance();
+        var instance = Instantiate(Objects[type], GameObject.Find("Obstacles").transform);
+
+        instance.transform.localPosition = addedObject.transform.Position.Value;
+        instance.transform.localRotation = addedObject.transform.Rotation.Value;
+        instance.transform.localScale = addedObject.transform.Scale.Value;
 
         addedObject.GameObject = instance;
 
+        if (instance.GetComponent<TargetScript>())
+        {
+            var targetScript = instance.GetComponent<TargetScript>();
+            HoloAndSeekManager.Instance.AllTargets.Add(targetScript);
+            addedObject.isActive.BooleanValueChanged += targetScript.TargetRemoteStateChanged;
+        }
+
+        instance.GetComponent<SyncObjectAccessor>().SyncObject = addedObject;
         instance.GetComponent<CustomTransformSynchronizer>().TransformDataModel = addedObject.transform;
     }
 
@@ -106,38 +114,9 @@ public class CustomPrefabSpawner : SpawnManager<CustomSyncModelObject>
         var rootObjectElement = SharingStage.Instance.Manager.GetRootSyncObject();
         //SharingStage.SyncRoot is hardwired to SyncSpawnedObject... 
         //I have no idea why...
-        //So i create my own custom root
+        //So I create my own custom root
 
         _syncRoot = new CustomSyncRoot(rootObjectElement);
         SyncSource = _syncRoot.InstantiatedModels;
-
-        StartCoroutine(WaitForPopulatedSyncSource());
-    }
-
-    private IEnumerator WaitForPopulatedSyncSource()
-    {
-        while (true)
-        {
-
-            yield return new WaitForSeconds(2);
-            if (SyncSource.GetDataArray().Length == 0)
-            {
-                if (DataModelSourceSet != null) DataModelSourceSet.Invoke();
-                Debug.Log("Create SyncObjects");
-            }
-            else
-            {
-                NumberOfLocalEntities = gameObject.GetComponentsInChildren<BoxActor>().Length;
-
-                if (SyncSource.GetDataArray().Length == NumberOfLocalEntities)
-                {
-                    if (DataModelSourceSet != null) DataModelSourceSet.Invoke();
-                }
-                else
-                {
-                    Debug.Log("Fuck...");
-                }
-            }
-        }
     }
 }

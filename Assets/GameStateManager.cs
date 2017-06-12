@@ -4,19 +4,20 @@ using System.Collections.Generic;
 using HoloToolkit.Unity;
 using UnityEngine;
 
-    public enum GameState
-    {
-        Configuration,
-        Playing,
-        Ended
-    }
+public enum GameState
+{
+    Sharing,
+    Configuration,
+    Playing,
+    Ended
+}
 public class GameStateManager : Singleton<GameStateManager>
 {
 
-
-
     [SerializeField]
     private GameState currentGameState = GameState.Configuration;
+
+    public CustomPrefabSpawner prefabSpawner;
 
     public Action<GameState> gameStateChangedEvent;
 
@@ -36,29 +37,39 @@ public class GameStateManager : Singleton<GameStateManager>
         }
     }
 
-    public void SetGameStatePlaying(){
+    public void SetGameStatePlaying()
+    {
         SetGameState(GameState.Playing);
     }
 
-    public void SetGameStateConfiguration(){
+    public void SetGameStateConfiguration()
+    {
         SetGameState(GameState.Configuration);
     }
 
-	public void SetGameState(GameState gameState){
-		CurrentGameState = gameState;
-	}
+    public void SetGameState(GameState gameState)
+    {
+        CurrentGameState = gameState;
+    }
 
-	public void ToggleGameStatePlayingConfiguration(){
-		if(currentGameState == GameState.Configuration){
-			CurrentGameState = GameState.Playing;
-		}else{
-			CurrentGameState = GameState.Configuration;
-		}
-	}
+    public void ToggleGameStatePlayingConfiguration()
+    {
+        if (currentGameState == GameState.Configuration)
+        {
+            if (HoloAndSeekManager.Instance._syncModel == null)
+                prefabSpawner.SpawnApplicationStateSyncObject();
+
+            CurrentGameState = GameState.Playing;
+        }
+        else
+        {
+            CurrentGameState = GameState.Configuration;
+        }
+    }
 
     void Start()
     {
-		
+
     }
 
 }

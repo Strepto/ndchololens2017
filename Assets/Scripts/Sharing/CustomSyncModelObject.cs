@@ -7,22 +7,19 @@ public class CustomSyncModelObject : SyncObject
     //Shared Data
     [SyncData]
     public SyncTransform transform;
-
-    [SyncData]
-    public SyncString GUID;
-
     
     [SyncData]
-    public SyncInteger BoxType;
+    public SyncInteger Type;
+
+    [SyncData]
+    public EventSyncBool isActive;
+
+    [SyncData]
+    public EventSyncInteger gameStage;
+
+    [SyncData]
+    public EventSyncInteger targetsFound;
 
     //Local Data
     public GameObject GameObject { get; set; }
-
-    public CustomSyncModelObject() { }
-
-    public CustomSyncModelObject(string GUID, int boxType)
-    {
-        this.GUID.Value = GUID;
-        this.BoxType.Value = boxType;
-    }
 }

@@ -276,9 +276,9 @@ namespace HoloToolkit.Sharing
             if (connectOnAwake)
             {
                 config.SetServerAddress(ServerAddress);
-                #if UNITY_EDITOR
+                /*#if UNITY_EDITOR
                     config.SetServerAddress("localhost");
-                #endif
+                #endif*/
                 config.SetServerPort(ServerPort);
             }
 

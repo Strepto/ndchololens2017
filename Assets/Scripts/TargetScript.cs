@@ -36,7 +36,7 @@ public class TargetScript : MonoBehaviour, IFocusable
         preStartScale = transform.localScale;
     }
 
-    public void ResetTarget()
+    public void ResetTarget(bool isRemote = false)
     {
 
         targetIsActive = true;
@@ -44,6 +44,21 @@ public class TargetScript : MonoBehaviour, IFocusable
         preStartScale = transform.localScale;
         targetExplodeScale = preStartScale * targetExplodeScaleFactor;
         scaleT = 0f;
+
+        if(!isRemote)
+            this.gameObject.GetComponent<SyncObjectAccessor>().SyncObject.isActive.Value = true;
+    }
+
+    public void TargetRemoteStateChanged(bool activated)
+    {
+        if(activated)
+        {
+            ResetTarget(true);
+        }
+        else
+        {
+            RemoveTarget();
+        }
     }
 
     void Update()
@@ -62,6 +77,9 @@ public class TargetScript : MonoBehaviour, IFocusable
                         {
                             TargetSeenEvent.Invoke(this);
                         }
+
+                        this.gameObject.GetComponent<SyncObjectAccessor>().SyncObject.isActive.Value = false;
+
                         targetIsActive = false;
                         transform.localScale = preStartScale;
                         GetComponent<Renderer>().enabled = false;
@@ -93,8 +111,6 @@ public class TargetScript : MonoBehaviour, IFocusable
     void IFocusable.OnFocusEnter()
     {
         isFocused = true;
-        
-
     }
 
     void IFocusable.OnFocusExit()
@@ -102,10 +118,13 @@ public class TargetScript : MonoBehaviour, IFocusable
         isFocused = false;
     }
 
-    internal void RemoveTarget()
+    internal void RemoveTarget(bool isRemote = false)
     {
 
         targetIsActive = false;
         GetComponent<Renderer>().enabled = false;
+
+        if (!isRemote)
+            this.gameObject.GetComponent<SyncObjectAccessor>().SyncObject.isActive.Value = false;
     }
 }

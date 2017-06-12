@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4195108460267436}
   - component: {fileID: 114859878104454322}
   - component: {fileID: 114804997739336408}
+  - component: {fileID: 114428672948774106}
+  - component: {fileID: 114255134538260656}
   m_Layer: 0
   m_Name: CactusObstacle
   m_TagString: Untagged
@@ -1210,6 +1212,28 @@ MeshCollider:
   m_InflateMesh: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300006, guid: a3acb8b90b3e68446882f0c7cec38450, type: 3}
+--- !u!114 &114255134538260656
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1117385549323442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8c9c79f5ef13154192a9e49a96c1368, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &114428672948774106
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1117385549323442}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b23417901ab024e41b7c4f53e87a5a7b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114804997739336408
 MonoBehaviour:
   m_ObjectHideFlags: 1
