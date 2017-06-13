@@ -433,7 +433,7 @@ MonoBehaviour:
   Score3DTextPrefab: {fileID: 1496919021}
   Remaining3DTextPrefab: {fileID: 66038864}
   TimeRemaining3DTextPrefab: {fileID: 1205176667}
-  GameMaxDurationInSeconds: 10
+  GameMaxDurationInSeconds: 99
   ConfigurationMenu: {fileID: 726288769}
   GameOverMenu: {fileID: 2111867694}
   numTargets: 10
