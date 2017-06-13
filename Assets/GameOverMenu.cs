@@ -18,7 +18,7 @@ public class GameOverMenu : MonoBehaviour {
 	public void UpdateGameOverScreen(int score, TimeSpan time, int position, int numPlayers){
 		this.ScoreText.GetComponent<TextMesh>().text = "Score: " + score;
 		this.TimeText.GetComponent<TextMesh>().text = "You used " + time.TotalSeconds + "sec";
-		this.PlaceText.GetComponent<TextMesh>().text = "Number " + position + " of " + numPlayers;
+		// this.PlaceText.GetComponent<TextMesh>().text = "Number " + position + " of " + numPlayers;
 
 	}
 	

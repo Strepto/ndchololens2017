@@ -6,7 +6,7 @@ using HoloToolkit.Sharing.SyncModel;
 using System.Collections;
 using System.Collections.Generic;
 
-public enum ObjectType
+public enum SharingObjectType
 {
     BoxMex = 0,
     Box = 1,
@@ -21,10 +21,12 @@ public enum ObjectType
 
 public class CustomPrefabSpawner : SpawnManager<CustomSyncModelObject>
 {
-    public List<GameObject> Objects; //Order matters on this, I know... Great code indeed
+    [Header("Objects in Correct order.")]
+    [Tooltip("Order matters on this, I know... Great code indeed")]
+    public List<GameObject> Objects;
     private CustomSyncRoot _syncRoot;
 
-    public void SpawnObject(GameObject instance, ObjectType type)
+    public void SpawnObject(GameObject instance, SharingObjectType type)
     {
         CustomSyncModelObject syncObject = CreateSyncModelObject(type, instance);
 
@@ -36,7 +38,6 @@ public class CustomPrefabSpawner : SpawnManager<CustomSyncModelObject>
             syncObject.isActive.BooleanValueChanged += targetScript.TargetRemoteStateChanged;
         }
 
-
         instance.GetComponent<SyncObjectAccessor>().SyncObject = syncObject;
         instance.GetComponent<CustomTransformSynchronizer>().TransformDataModel = syncObject.transform;
 
@@ -46,18 +47,28 @@ public class CustomPrefabSpawner : SpawnManager<CustomSyncModelObject>
     public void SpawnApplicationStateSyncObject()
     {
         CustomSyncModelObject syncObject = new CustomSyncModelObject();
-        syncObject.Type.Value = (int)ObjectType.ApplicationState;
+        syncObject.Type.Value = (int)SharingObjectType.ApplicationState;
 
         if (SyncSource != null) SyncSource.AddObject(syncObject);
     }
 
-    private CustomSyncModelObject CreateSyncModelObject(ObjectType type, GameObject instance)
+    private CustomSyncModelObject CreateSyncModelObject(SharingObjectType type, GameObject instance)
     {
         CustomSyncModelObject syncObject = new CustomSyncModelObject();
 
         syncObject.transform.Position.Value = instance.transform.localPosition;
-        syncObject.transform.Rotation.Value = instance.transform.localRotation; 
+        syncObject.transform.Rotation.Value = instance.transform.localRotation;
         syncObject.transform.Scale.Value = instance.transform.localScale;
+
+
+        if (instance.GetComponentInChildren<IBox>() != null)
+        {
+            syncObject.boxType.Value = instance.GetComponentInChildren<IBox>().GetBoxType();
+        }
+        else
+        {
+            syncObject.boxType.Value = -1;
+        }
 
         syncObject.Type.Value = (int)type;
 
@@ -73,7 +84,7 @@ public class CustomPrefabSpawner : SpawnManager<CustomSyncModelObject>
     {
         if (addedObject.GameObject != null) return;
 
-        if((ObjectType)addedObject.Type.Value == ObjectType.ApplicationState)
+        if ((SharingObjectType)addedObject.Type.Value == SharingObjectType.ApplicationState)
         {
             HoloAndSeekManager.Instance.SetSyncObject(addedObject);
             return;
@@ -92,8 +103,16 @@ public class CustomPrefabSpawner : SpawnManager<CustomSyncModelObject>
         if (instance.GetComponent<TargetScript>())
         {
             var targetScript = instance.GetComponent<TargetScript>();
-            HoloAndSeekManager.Instance.AllTargets.Add(targetScript);
+            HoloAndSeekManager.Instance.AddTarget(targetScript);
             addedObject.isActive.BooleanValueChanged += targetScript.TargetRemoteStateChanged;
+        }
+
+        if (addedObject.boxType.Value != -1)
+        {
+            if (instance.GetComponentInChildren<IBox>() != null)
+            {
+                instance.GetComponentInChildren<IBox>().SetBoxType(addedObject.boxType.Value);
+            }
         }
 
         instance.GetComponent<SyncObjectAccessor>().SyncObject = addedObject;

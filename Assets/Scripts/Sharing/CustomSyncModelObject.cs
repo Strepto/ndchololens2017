@@ -12,6 +12,9 @@ public class CustomSyncModelObject : SyncObject
     public SyncInteger Type;
 
     [SyncData]
+    public SyncInteger boxType;
+
+    [SyncData]
     public EventSyncBool isActive;
 
     [SyncData]

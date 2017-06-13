@@ -81,24 +81,19 @@ public class BoxTransform : MonoBehaviour, IFocusable, ISpeechHandler, IManipula
         {
             if (prevCumulativeDelta != null)
             {
-
                 var delta = (eventData.CumulativeDelta.y - prevCumulativeDelta.Value.y);
                 delta = delta * 6;
-                gameObject.transform.localScale += new Vector3(delta, delta, delta);
-
+                gameObject.transform.localScale += Vector3.one * delta;
             }
-            prevCumulativeDelta = eventData.CumulativeDelta;
         }
-
         else if (manipulationMode == ManipulationModes.Move)
         {
             if (prevCumulativeDelta != null)
             {
-                var delta = (eventData.CumulativeDelta - prevCumulativeDelta.Value);
+                var delta = (eventData.CumulativeDelta - prevCumulativeDelta.Value );
                 delta = delta * 5;
-                gameObject.transform.localPosition += delta;
+                gameObject.transform.position += delta;
             }
-            prevCumulativeDelta = eventData.CumulativeDelta;
         }
         else if (manipulationMode == ManipulationModes.Rotate)
         {
@@ -113,10 +108,10 @@ public class BoxTransform : MonoBehaviour, IFocusable, ISpeechHandler, IManipula
                     multiplier = -1.0f;
 
                 var rotation = new Vector3(eventData.CumulativeDelta.y * -multiplier, eventData.CumulativeDelta.x * multiplier);
-                transform.Rotate(rotation * 4, Space.World);
+                transform.Rotate(rotation * 10, Space.World);
             }
-            prevCumulativeDelta = eventData.CumulativeDelta;
         }
+        prevCumulativeDelta = eventData.CumulativeDelta;
     }
 
     void IManipulationHandler.OnManipulationCompleted(ManipulationEventData eventData)
@@ -144,7 +139,7 @@ public class BoxTransform : MonoBehaviour, IFocusable, ISpeechHandler, IManipula
     }
     void IFocusable.OnFocusEnter()
     {
-
+        // Take focus events.
     }
 
     void IFocusable.OnFocusExit()

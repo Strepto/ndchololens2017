@@ -97,7 +97,7 @@ namespace HoloToolkit.Unity.SpatialMapping
 
                 if (gameObject.layer != LayerMask.NameToLayer("Ignore Raycast"))
                 {
-
+                    spatialMappingManager.DrawVisualMeshes = true;
                     InputManager.Instance.PushModalInputHandler(gameObject);
                     IgnoreRaycasts(true);
                 }
@@ -157,13 +157,13 @@ namespace HoloToolkit.Unity.SpatialMapping
 
         public virtual void OnInputClicked(InputClickedEventData eventData)
         {
-            // On each tap gesture, toggle whether the user is in placing mode.
             if (GameStateManager.Instance.CurrentGameState != GameState.Configuration && IsBeingPlaced == false)
             {
-                Debug.Log("Tap to place is inactive in play mode");
+                Debug.Log("Tap to place is NOT AVAILABLE in GameState.Playing mode");
                 return;
             }
 
+            // On each tap gesture, toggle whether the user is in placing mode.
             IsBeingPlaced = !IsBeingPlaced;
 
 

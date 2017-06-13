@@ -5,7 +5,7 @@ using UnityEngine;
 public class MenuExtensionPrefabScript : MonoBehaviour {
 
 	public void DeleteAllDynamicObjects(){
-		var parent = GameObject.Find("_Dynamic");
+		var parent = GameObject.Find("Obstacles");
 		var children = new List<GameObject>();
         foreach(Transform child in parent.transform)
         {
@@ -14,4 +14,7 @@ public class MenuExtensionPrefabScript : MonoBehaviour {
         children.ForEach(child => Destroy(child));
 	}
 
+    public void SetGameStateSharing(){
+        GameStateManager.Instance.SetGameStateSharing();
+    }
 }

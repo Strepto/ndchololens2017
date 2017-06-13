@@ -18,6 +18,9 @@ public class HoloAndSeekManager : Singleton<HoloAndSeekManager>
 {
     public GameObject Score3DTextPrefab;
     public GameObject Remaining3DTextPrefab;
+    public TextMesh TimeRemaining3DTextPrefab;
+
+    public int GameMaxDurationInSeconds = 99;
 
     public GameObject ConfigurationMenu;
     public GameObject GameOverMenu;
@@ -25,7 +28,7 @@ public class HoloAndSeekManager : Singleton<HoloAndSeekManager>
     public int numTargets = 10;
 
     [HideInInspector]
-    public List<TargetScript> AllTargets;
+    private List<TargetScript> AllTargets = new List<TargetScript>();
     private List<TargetScript> SessionTargets = new List<TargetScript>();
     private List<TargetScript> UsedTargets = new List<TargetScript>();
     int _score;
@@ -47,15 +50,19 @@ public class HoloAndSeekManager : Singleton<HoloAndSeekManager>
     List<FoundTarget> targetSequence;
     private GameStateManager gameStateManager;
 
+
+    private float timeLeft = 99;
+
     // Use this for initialization
     void Start()
     {
-        if (!ConfigurationMenu || !GameOverMenu)
+        if (!ConfigurationMenu || !GameOverMenu || !TimeRemaining3DTextPrefab)
         {
             Debug.LogError("Missing some required paramters.");
         }
         gameStateManager = GameStateManager.Instance;
         gameStateManager.gameStateChangedEvent += OnGameStateChanged;
+        Remaining3DTextPrefab.GetComponent<TextMesh>().text = "Num Targets: " + AllTargets.Count;
     }
 
     public void ResetGame(bool startGame, bool remoteInitiated = false)
@@ -68,7 +75,8 @@ public class HoloAndSeekManager : Singleton<HoloAndSeekManager>
         if (startGame)
         {
             timestampStart = Time.unscaledTime;
-            if(!remoteInitiated)
+            timeLeft = GameMaxDurationInSeconds;
+            if (!remoteInitiated)
                 SeedNewTargets();
         }
     }
@@ -99,6 +107,21 @@ public class HoloAndSeekManager : Singleton<HoloAndSeekManager>
         Remaining3DTextPrefab.GetComponent<TextMesh>().text = UsedTargets.Count + " / " + SessionTargets.Count;
     }
 
+    private void Update()
+    {
+        if (gameStateManager.CurrentGameState == GameState.Playing)
+        {
+            timeLeft -= Time.deltaTime;
+            TimeRemaining3DTextPrefab.text = string.Format("Time left: {0:000.00}", TimeSpan.FromSeconds(timeLeft).TotalSeconds);
+            
+            if (timeLeft < 0)
+            {
+                gameStateManager.SetGameState(GameState.Ended);
+            }
+        }
+
+    }
+
     internal void SetSyncObject(CustomSyncModelObject syncModel)
     {
         _syncModel = syncModel;
@@ -112,19 +135,14 @@ public class HoloAndSeekManager : Singleton<HoloAndSeekManager>
 
     private void OnGameStateChanged(GameState changedGameState)
     {
-        if(_syncModel != null && (GameState)_syncModel.gameStage.Value != changedGameState)
+        if (_syncModel != null && (GameState)_syncModel.gameStage.Value != changedGameState)
         {
             _syncModel.gameStage.Value = (int)changedGameState;
         }
 
-
         if (changedGameState == GameState.Configuration)
         {
             ResetGame(false);
-        }
-
-        if (changedGameState == GameState.Configuration)
-        {
             ShowConfigurationMenu();
         }
         else
@@ -145,6 +163,12 @@ public class HoloAndSeekManager : Singleton<HoloAndSeekManager>
         {
             HideGameOverMenu();
         }
+    }
+
+    public void AddTarget(TargetScript targetScript)
+    {
+        AllTargets.Add(targetScript);
+        Remaining3DTextPrefab.GetComponent<TextMesh>().text = "Num Targets: " + AllTargets.Count;
     }
 
     private void HideConfigurationMenu()
