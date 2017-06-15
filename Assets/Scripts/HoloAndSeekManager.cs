@@ -25,10 +25,9 @@ public class HoloAndSeekManager : Singleton<HoloAndSeekManager>
     public GameObject ConfigurationMenu;
     public GameObject GameOverMenu;
 
-    public int numTargets = 10;
+    public int MaxTargetsToFind = 10;
 
-    [HideInInspector]
-    private List<TargetScript> AllTargets = new List<TargetScript>();
+    public List<TargetScript> AllTargets = new List<TargetScript>();
     private List<TargetScript> SessionTargets = new List<TargetScript>();
     private List<TargetScript> UsedTargets = new List<TargetScript>();
     int _score;
@@ -62,7 +61,7 @@ public class HoloAndSeekManager : Singleton<HoloAndSeekManager>
         }
         gameStateManager = GameStateManager.Instance;
         gameStateManager.gameStateChangedEvent += OnGameStateChanged;
-        Remaining3DTextPrefab.GetComponent<TextMesh>().text = "Num Targets: " + AllTargets.Count;
+        Remaining3DTextPrefab.GetComponent<TextMesh>().text = "Num Targets: " + AllTargets.Count + "/" + MaxTargetsToFind;
     }
 
     public void ResetGame(bool startGame, bool remoteInitiated = false)
@@ -84,8 +83,16 @@ public class HoloAndSeekManager : Singleton<HoloAndSeekManager>
     private void SeedNewTargets()
     {
         var targetPool = new List<TargetScript>(AllTargets);
-        SessionTargets = new List<TargetScript>();
-        numTargets = (targetPool.Count > numTargets) ? numTargets : targetPool.Count;
+        SessionTargets.Clear();
+        var numTargets = (targetPool.Count > MaxTargetsToFind) ? MaxTargetsToFind : targetPool.Count;
+
+
+        foreach (var t in targetPool)
+        {
+            t.TargetSeenEvent -= FoundTarget;
+        }
+
+
         for (int i = 0; i < numTargets; i++)
         {
             var n = UnityEngine.Random.Range(0, targetPool.Count);
@@ -101,7 +108,6 @@ public class HoloAndSeekManager : Singleton<HoloAndSeekManager>
         foreach (var t in targetPool)
         {
             t.RemoveTarget();
-            t.TargetSeenEvent -= FoundTarget;
         }
 
         Remaining3DTextPrefab.GetComponent<TextMesh>().text = UsedTargets.Count + " / " + SessionTargets.Count;
@@ -113,7 +119,7 @@ public class HoloAndSeekManager : Singleton<HoloAndSeekManager>
         {
             timeLeft -= Time.deltaTime;
             TimeRemaining3DTextPrefab.text = string.Format("Time left: {0:000.00}", TimeSpan.FromSeconds(timeLeft).TotalSeconds);
-            
+
             if (timeLeft < 0)
             {
                 gameStateManager.SetGameState(GameState.Ended);
@@ -168,7 +174,21 @@ public class HoloAndSeekManager : Singleton<HoloAndSeekManager>
     public void AddTarget(TargetScript targetScript)
     {
         AllTargets.Add(targetScript);
-        Remaining3DTextPrefab.GetComponent<TextMesh>().text = "Num Targets: " + AllTargets.Count;
+        Remaining3DTextPrefab.GetComponent<TextMesh>().text = "Num Targets: " + AllTargets.Count + "/" + MaxTargetsToFind;
+    }
+
+    public void IncreaseMaxTargets()
+    {
+        MaxTargetsToFind += 1; 
+        Remaining3DTextPrefab.GetComponent<TextMesh>().text = "Num Targets: " + AllTargets.Count + "/" + MaxTargetsToFind;
+
+    }
+
+    public void DecreaseMaxTargets()
+    {
+        MaxTargetsToFind -= 1; 
+        Remaining3DTextPrefab.GetComponent<TextMesh>().text = "Num Targets: " + AllTargets.Count + "/" + MaxTargetsToFind;
+
     }
 
     private void HideConfigurationMenu()
@@ -228,7 +248,7 @@ public class HoloAndSeekManager : Singleton<HoloAndSeekManager>
         {
 
             System.TimeSpan timeSpent = System.TimeSpan.FromSeconds(Time.unscaledTime - timestampStart);
-            Score += (int)((10 * numTargets) / timeSpent.TotalSeconds);
+            Score += (int)((10 * SessionTargets.Count) / timeSpent.TotalSeconds);
             Debug.Log("Time spent: " + timeSpent);
 
             if (_syncModel != null)

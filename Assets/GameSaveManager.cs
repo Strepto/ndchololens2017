@@ -25,7 +25,11 @@ private const string SAVED_GAMESTATE_JSON = "SaveGameJson";
 
 		if(PlayerPrefs.GetString(SAVED_GAMESTATE_JSON, null) == null){
 			RestoreSavedButton.SetInteractable(false);
-		}
+        }
+        else
+        {
+            RestoreSavedButton.SetInteractable(true);
+        }
 	}
 
 	public void SaveObstacles(){
