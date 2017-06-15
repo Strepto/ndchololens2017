@@ -22,6 +22,16 @@ public class ButtonScript : MonoBehaviour, IFocusable, IInputClickHandler {
     [Header("Animation Trigger Event")]
     public UnityEvent OnClickEvent;
 
+
+    void Start () {
+		animator = GetComponent<Animator>();
+        if (!Interactable)
+        {
+            animator.SetTrigger(DisabledTrigger);
+        }
+    }
+
+
     void IFocusable.OnFocusEnter()
     {
         if (Interactable)
@@ -55,15 +65,16 @@ public class ButtonScript : MonoBehaviour, IFocusable, IInputClickHandler {
         }
     }
 
+    /// Triggered from the animator.
     public void PressedTriggerStarted()
     {
-        if (OnClickEvent != null)
-        {
-            OnClickEvent.Invoke();
-        }
         if (ClickedAudioSource != null)
         {
             ClickedAudioSource.GetComponent<AudioSource>().Play();
+        }
+        if (OnClickEvent != null)
+        {
+            OnClickEvent.Invoke();
         }
     }
 
@@ -81,18 +92,5 @@ public class ButtonScript : MonoBehaviour, IFocusable, IInputClickHandler {
         }
     }
 
-
-    // Use this for initialization
-    void Start () {
-		animator = GetComponent<Animator>();
-        if (!Interactable)
-        {
-            animator.SetTrigger(DisabledTrigger);
-        }
-    }
 	
-	// Update is called once per frame
-	void Update () {
-		
-	}
 }

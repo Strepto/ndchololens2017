@@ -11,13 +11,14 @@ public class SharingAnchorPlacement : MonoBehaviour
 
     GestureRecognizer gestureRecognizer;
 
-    bool isPlaceing = true;
+    bool isPlacing = true;
 
     void Start()
     {
         _gameStateManager = GameStateManager.Instance;
 
 #if UNITY_EDITOR
+        Debug.Log("Sharing position is disabled in Unity Editor.");
         this.gameObject.transform.position = new Vector3(0, 0, 1);
         this.gameObject.transform.LookAt(new Vector3(0, 0, 0));
 
@@ -26,9 +27,9 @@ public class SharingAnchorPlacement : MonoBehaviour
         return;
 #endif
 
-        _gameStateManager.gameStateChangedEvent += GameStateChanged;
 
         gestureRecognizer = new GestureRecognizer();
+        _gameStateManager.gameStateChangedEvent += GameStateChanged;
         gestureRecognizer.TappedEvent += OnTappedEvent;
         gestureRecognizer.SetRecognizableGestures(GestureSettings.Tap);
 
@@ -41,10 +42,10 @@ public class SharingAnchorPlacement : MonoBehaviour
 
     private void OnTappedEvent(InteractionSourceKind source, int tapCount, Ray headRay)
     {
-        if (isPlaceing)
+        if (isPlacing)
         {
             this.gameObject.transform.position = GazeManager.Instance.HitInfo.point;
-            isPlaceing = false;
+            isPlacing = false;
         }
         else
         {
@@ -57,14 +58,14 @@ public class SharingAnchorPlacement : MonoBehaviour
         }
     }
 
-    private void GameStateChanged(GameState obj)
+    private void GameStateChanged(GameState newGameState)
     {
-        if (_gameStateManager.CurrentGameState == GameState.Sharing)
+        if (newGameState == GameState.Sharing)
         {
             gestureRecognizer.StartCapturingGestures();
             SpatialMappingManager.Instance.DrawVisualMeshes = true;
             VisualClue.SetActive(true);
-            isPlaceing = true;
+            isPlacing = true;
         }
     }
 

@@ -5,10 +5,11 @@ using UnityEngine;
 
 //[RequireComponent(typeof(MeshRenderer), typeof(MeshFilter))]
 [ExecuteInEditMode]
-public class BoxType : MonoBehaviour {
+public class BoxType : MonoBehaviour, IBox {
 
     [Tooltip("-1 is random. 0-n are specified values from MeshAndMatOptions.")]
-    public int boxType = -1;
+    [SerializeField]
+    private int boxType = -1;
 
 
     [System.Serializable]
@@ -36,15 +37,14 @@ public class BoxType : MonoBehaviour {
         }
         if (boxType == -1)
         {
-            SetMeshAndMaterial(Random.Range(0, meshAndMatOptions.Count));
+            boxType = Random.Range(0, meshAndMatOptions.Count);
+            SetMeshAndMaterial(boxType);
             //Randomize rotation in increments of 90 degrees, to avoid completely identical looking boxes.
             gameObject.transform.Rotate(RandomizeRotation90Degrees());
         }
-        else
-        {
-            SetMeshAndMaterial(boxType);
-            //Not rotating randomly.
-        }
+        
+        SetMeshAndMaterial(boxType);
+           
         
     }
 
@@ -71,4 +71,13 @@ public class BoxType : MonoBehaviour {
 		
 	}
 
+    int IBox.GetBoxType()
+    {
+        return boxType;
+    }
+
+    void IBox.SetBoxType(int boxType)
+    {
+        this.boxType = boxType;
+    }
 }

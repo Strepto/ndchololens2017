@@ -29,10 +29,12 @@ public class GameStateManager : Singleton<GameStateManager>
         }
         set
         {
+            if(value != currentGameState){
             currentGameState = value;
-            if (gameStateChangedEvent != null)
-            {
-                gameStateChangedEvent.Invoke(currentGameState);
+                if (gameStateChangedEvent != null)
+                {
+                    gameStateChangedEvent.Invoke(currentGameState);
+                }
             }
         }
     }
@@ -42,6 +44,10 @@ public class GameStateManager : Singleton<GameStateManager>
         SetGameState(GameState.Playing);
     }
 
+    public void SetGameStateSharing()
+    {
+        SetGameState(GameState.Sharing);
+    }
     public void SetGameStateConfiguration()
     {
         SetGameState(GameState.Configuration);
@@ -66,10 +72,4 @@ public class GameStateManager : Singleton<GameStateManager>
             CurrentGameState = GameState.Configuration;
         }
     }
-
-    void Start()
-    {
-
-    }
-
 }

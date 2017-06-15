@@ -56,6 +56,7 @@ GameObject:
   - component: {fileID: 114642966693939450}
   - component: {fileID: 114353129902884980}
   - component: {fileID: 114278764082435698}
+  - component: {fileID: 114132329270968674}
   m_Layer: 0
   m_Name: SpiderObstacle
   m_TagString: Untagged
@@ -159,6 +160,18 @@ MeshCollider:
   m_InflateMesh: 0
   m_SkinWidth: 0.01
   m_Mesh: {fileID: 4300000, guid: 32f79533224139c47aaa1b9c6f2d68fe, type: 3}
+--- !u!114 &114132329270968674
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1428077347437560}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a5faee4176399ec4eb0aa847f95da44d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentObjectType: 4
 --- !u!114 &114278764082435698
 MonoBehaviour:
   m_ObjectHideFlags: 1

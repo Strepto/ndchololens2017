@@ -6,7 +6,7 @@ Material:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
-  m_Name: BlueEdgedMaterial
+  m_Name: DarkerEdgedMaterial 1
   m_Shader: {fileID: 4800000, guid: 2782662d6263cbb479829be3d5c71cd7, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
@@ -30,7 +30,7 @@ Material:
     - _Side_Brightness: 1
     m_Colors:
     - _Light_Dir: {r: 0.5, g: -1, b: 0, a: 10}
-    - _Material_Color: {r: 0, g: 0.5, b: 1, a: 1}
+    - _Material_Color: {r: 0.6764706, g: 0.19398788, b: 0.49199194, a: 1}
     - _Reflection_Tint: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1002 &2100001
 EditorExtensionImpl:

@@ -8,7 +8,7 @@ public class NewObjectInstantiator : MonoBehaviour
 {
     public GameObject InstatiatedPrefab;
     public CustomPrefabSpawner SpawnManager;
-    public ObjectType type;
+    public SharingObjectType type;
 
     public void InstantiatePrefab()
     {
@@ -27,7 +27,7 @@ public class NewObjectInstantiator : MonoBehaviour
 
         if (go.GetComponent<TargetScript>())
         {
-            HoloAndSeekManager.Instance.AllTargets.Add(go.GetComponent<TargetScript>());
+            HoloAndSeekManager.Instance.AddTarget(go.GetComponent<TargetScript>());
         }
 
         if (go.GetComponent<TapToPlace>())
